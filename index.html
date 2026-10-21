@@ -87,8 +87,7 @@
   /* 오시는 길 */
   .venue-name{font-family:'Gowun Batang',serif;font-size:18px}
   .venue-addr{color:var(--sub);font-size:14px;margin:4px 0 20px}
-  .map{width:100%;height:240px;border:0;border-radius:14px;background:#e9e3da}
-  .map-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+  .map-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
   .transport{text-align:left;margin-top:28px}
   .transport div{padding:16px 0;border-top:1px solid var(--line)}
   .transport h3{font-size:14px;font-weight:500;margin-bottom:4px}
@@ -168,7 +167,6 @@
     <h2 class="fade">오시는 길</h2>
     <div class="venue-name fade" id="venueName"></div>
     <div class="venue-addr fade" id="venueAddr"></div>
-    <iframe class="map fade" id="map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="지도"></iframe>
     <div class="map-btns fade">
       <a class="btn" id="naverMap" target="_blank" rel="noopener">네이버 지도</a>
       <a class="btn" id="kakaoMap" target="_blank" rel="noopener">카카오맵</a>
@@ -388,8 +386,6 @@ function renderLB(){ $('lbImg').src = DATA.photos[lbIdx]; $('lbCount').textConte
 /* 오시는 길 */
 $('venueName').textContent = `${DATA.venue.name} ${DATA.venue.hall}`;
 $('venueAddr').innerHTML = `${DATA.venue.address}${DATA.venue.tel ? `<br>Tel. <a href="tel:${DATA.venue.tel}" style="color:inherit">${DATA.venue.tel}</a>` : ''}`;
-const q = encodeURIComponent(DATA.venue.address);
-$('map').src = `https://maps.google.com/maps?q=${q}&z=16&output=embed`;
 $('naverMap').href = `https://map.naver.com/p/search/${encodeURIComponent(DATA.venue.name)}`;
 $('kakaoMap').href = `https://map.kakao.com/link/search/${encodeURIComponent(DATA.venue.name)}`;
 $('transport').innerHTML = DATA.transport.map(t=>`<div><h3>${t.title}</h3><p>${t.desc}</p></div>`).join('');
