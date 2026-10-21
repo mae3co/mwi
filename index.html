@@ -32,9 +32,9 @@
   .fade.show{opacity:1;transform:none}
 
   /* 메인 */
-  .hero{padding:0 0 48px}
+  .hero{padding:96px 28px 56px;min-height:46vh;display:flex;flex-direction:column;justify-content:center}
   .hero-photo{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;background:linear-gradient(160deg,#e8ddd1,#d8c6b4)}
-  .hero-names{font-family:'Gowun Batang',serif;font-size:26px;margin-top:32px;letter-spacing:.05em}
+  .hero-names{font-family:'Gowun Batang',serif;font-size:30px;margin-top:18px;letter-spacing:.05em}
   .hero-names .amp{color:var(--accent);margin:0 10px;font-size:20px}
   .hero-date{margin-top:12px;color:var(--sub);font-size:14px;line-height:1.7}
 
@@ -131,7 +131,7 @@
 
   <!-- 메인 -->
   <section class="hero">
-    <img class="hero-photo no-zoom" id="heroPhoto" alt="웨딩 사진">
+    <div class="eyebrow fade">WEDDING INVITATION</div>
     <div class="hero-names fade" id="heroNames"></div>
     <div class="hero-date fade" id="heroDate"></div>
   </section>
@@ -305,7 +305,6 @@ const dateText = `${wd.getFullYear()}년 ${wd.getMonth()+1}월 ${wd.getDate()}�
 function safeImg(img){ img.onerror = () => { img.style.visibility='hidden'; }; }
 
 /* 메인 */
-const hp = $('heroPhoto'); safeImg(hp); hp.src = DATA.mainPhoto;
 $('heroNames').innerHTML = `${DATA.groom.name}<span class="amp">&amp;</span>${DATA.bride.name}`;
 $('heroDate').innerHTML = `${dateText}<br>${DATA.venue.name} ${DATA.venue.hall}`;
 document.title = `${DATA.groom.name} ♥ ${DATA.bride.name} 결혼합니다`;
