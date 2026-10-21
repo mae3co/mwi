@@ -94,6 +94,10 @@
   .transport h3{font-size:14px;font-weight:500;margin-bottom:4px}
   .transport p{font-size:13px;color:var(--sub);white-space:pre-line;line-height:1.8}
 
+  /* 안내 */
+  .notice-box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 18px;font-family:'Gowun Batang',serif;font-size:14px;line-height:2;white-space:pre-line}
+  .notice-box::before{content:'🌸';display:block;font-size:18px;margin-bottom:6px}
+
   /* 계좌 */
   .acc-note{font-size:14px;color:var(--sub);margin-bottom:24px;font-family:'Gowun Batang',serif;line-height:1.9}
   .acc{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:12px;text-align:left;overflow:hidden}
@@ -173,6 +177,15 @@
     <div class="transport fade" id="transport"></div>
   </section>
 
+  <!-- 안내 -->
+  <section id="noticeSection">
+    <div class="eyebrow fade">NOTICE</div>
+    <h2 class="fade">안내 말씀</h2>
+    <div class="notice-box fade" id="noticeText"></div>
+  </section>
+
+  <div class="divider"></div>
+
   <!-- 계좌 -->
   <section>
     <div class="eyebrow fade">ACCOUNT</div>
@@ -228,6 +241,13 @@ const DATA = {
 
   greeting:
 `흐헤헤 초대문구 뭘로하지?`,
+
+  // 화환 안내 문구 ('' 로 비우면 이 칸은 안 보여요)
+  notice:
+`축하 화환은 정중히 사양합니다.
+예식장 사정으로 화환 반입이 어려운 점
+너그러운 마음으로 양해 부탁드리며,
+보내주시려는 마음만 감사히 받겠습니다.`,
 
   closing:
 `바쁘신 와중에도 축하해 주시는 모든 분들께
@@ -373,6 +393,10 @@ $('map').src = `https://maps.google.com/maps?q=${q}&z=16&output=embed`;
 $('naverMap').href = `https://map.naver.com/p/search/${encodeURIComponent(DATA.venue.name)}`;
 $('kakaoMap').href = `https://map.kakao.com/link/search/${encodeURIComponent(DATA.venue.name)}`;
 $('transport').innerHTML = DATA.transport.map(t=>`<div><h3>${t.title}</h3><p>${t.desc}</p></div>`).join('');
+
+/* 안내 */
+if(DATA.notice){ $('noticeText').textContent = DATA.notice; }
+else { $('noticeSection').style.display='none'; }
 
 /* 계좌 */
 function accBlock(title, list){
