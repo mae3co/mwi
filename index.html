@@ -76,6 +76,8 @@
   .gallery img{width:100%;height:100%;object-fit:cover;display:block}
   .gallery .more-hidden{display:none}
   .lightbox{position:fixed;inset:0;background:rgba(20,17,15,.94);display:none;align-items:center;justify-content:center;z-index:50;touch-action:pan-y}
+  /* 사진 확대(핀치·더블탭) 막기 */
+  .no-zoom, .no-zoom img, .lightbox, .lightbox img{touch-action:pan-y}
   .lightbox.open{display:flex}
   .lightbox img{max-width:100%;max-height:82vh;object-fit:contain}
   .lb-btn{position:absolute;background:none;border:0;color:#fff;font-size:28px;padding:16px;cursor:pointer;opacity:.8}
@@ -121,7 +123,7 @@
 
   <!-- 메인 -->
   <section class="hero">
-    <img class="hero-photo" id="heroPhoto" alt="웨딩 사진">
+    <img class="hero-photo no-zoom" id="heroPhoto" alt="웨딩 사진">
     <div class="hero-names fade" id="heroNames"></div>
     <div class="hero-date fade" id="heroDate"></div>
   </section>
@@ -152,7 +154,7 @@
   <section>
     <div class="eyebrow fade">GALLERY</div>
     <h2 class="fade">우리의 순간들</h2>
-    <div class="gallery fade" id="gallery"></div>
+    <div class="gallery fade no-zoom" id="gallery"></div>
     <button class="btn fade" id="moreBtn" style="margin-top:18px" onclick="showMore()">사진 더보기</button>
   </section>
 
@@ -407,6 +409,11 @@ function shareLink(){
     navigator.share({ title: document.title, text: `${dateText} ${DATA.venue.name}`, url: location.href }).catch(()=>{});
   } else copyText(location.href, '링크를 복사했어요');
 }
+
+/* 사진 위에서 두 손가락 확대 막기 (아이폰은 gesturestart, 안드로이드는 touchmove) */
+const isPhoto = el => el && el.closest && el.closest('.no-zoom, .lightbox');
+document.addEventListener('gesturestart', e => { if(isPhoto(e.target)) e.preventDefault(); });
+document.addEventListener('touchmove', e => { if(e.touches.length > 1 && isPhoto(e.target)) e.preventDefault(); }, {passive:false});
 
 /* 스크롤하면 스르륵 나타나기 */
 const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); } }), {threshold:.15});
